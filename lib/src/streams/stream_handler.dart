@@ -164,7 +164,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       this._localSettings,
       this._onActiveStateChanged,
       this.nextStreamId,
-      this.lastRemoteStreamId);
+      this.lastRemoteStreamId)  {
+    print('http2/stream_handler : Creating new StreamHandler ($hashCode)');
+  }
 
   factory StreamHandler.client(
       FrameWriter writer,
@@ -297,6 +299,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     //       * the underlying transport [outgoing]
     //   - register incoming stream queue in connection-level queue
 
+    print('http2/stream_handler : _newStreamInternal() : $this($hashCode) : streamId=$streamId');
     var outgoingStreamWindow =
         new Window(initialSize: _peerSettings.initialWindowSize);
 

@@ -366,6 +366,7 @@ abstract class Connection {
   }
 
   void _finishing({bool active: true, String message}) {
+    print('~!@ :: _finishing()\n${StackTrace.current}');
     // If this connection is already dead, we return.
     if (_state.isTerminated) return;
 
@@ -457,10 +458,11 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 
   ClientTransportStream makeRequest(List<Header> headers,
       {bool endStream: false}) {
+    print('http2/connection - $this($hashCode) - makeRequest().  _state=$_state');
     if (_state.isFinishing) {
       throw new StateError(
           'The http/2 connection is finishing and can therefore not be used to '
-          'make new streams.');
+          'make new streams\n${StackTrace.current}.');
     } else if (_state.isTerminated) {
       throw new StateError(
           'The http/2 connection is no longer active and can therefore not be '
